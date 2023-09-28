@@ -1,1 +1,1 @@
-
+Для запуска turtle_teleop_key использовал команду "ros2 run turtlesim turtle_teleop_key --ros_args --remap /turtle1/cmd_vel:=/turtlesim1/turtle1/cmd_vel"
