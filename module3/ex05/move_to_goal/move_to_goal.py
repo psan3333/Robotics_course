@@ -37,6 +37,7 @@ class MoveToGoal(Node):
         if speed_vector[1] >= 0:
             speed_vector_angle = np.arccos(np.dot(speed_vector, basis) / (np.linalg.norm(speed_vector) * np.linalg.norm(basis)))
 
+        # угол, на который черепаха будет повернута в результате
         turtle_angle = speed_vector_angle
         # сделано так, что сначала якобы вектор basis лежит под углом theta_turtle к оси Ox, 
         # затем мы поворачиваем его так, чтобы он лежал на положительной полуоси Ox, 
