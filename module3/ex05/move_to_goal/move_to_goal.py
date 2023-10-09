@@ -29,7 +29,7 @@ class MoveToGoal(Node):
 
     def rotation_angle(self):
         x_turtle, y_turtle = self.turtle_pose.x, self.turtle_pose.y
-        rotation_angle = self.turtle_pose.theta
+        rotation_angle = self.turtle_pose.theta  # угол, на который черепаха повернута сейчас
         speed_vector = np.array([self.x - x_turtle, self.y - y_turtle])
 
         basis = np.array([1, 0])
