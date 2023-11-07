@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<robot name="sam_bot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Robot properties -->
+  <xacro:property name="scale" value="2.0"/>
+  <xacro:property name="chassis_axis_radius" value="${scale*0.015}"/>
+  <xacro:property name="chassis_x_offset" value="${scale*0.15}"/>
+  <xacro:property name="chassis_y_offset" value="${scale*0.15}"/>
+  <xacro:property name="chassis_height" value="${scale*0.07}"/>
+  <xacro:property name="platform_len" value="${chassis_x_offset*3}"/>
+  <xacro:property name="platform_width" value="${scale*0.1}"/>
+  <xacro:property name="platform_height" value="${scale*0.02}"/>
+  <xacro:property name="rotation_axis_len" value="${scale*0.09}"/>
+  <xacro:property name="wheel_radius" value="${scale*0.05}"/>
+  <xacro:property name="wheel_width" value="${scale*0.05}"/>
+  <xacro:property name="robot_leg_height" value="${scale*0.15}"/>
+  <xacro:property name="robot_leg_radius" value="${scale*0.05}"/>
+  <xacro:property name="robot_body_len" value="${scale*0.2}"/>
+  <xacro:property name="robot_body_width" value="${chassis_x_offset*8/3}"/>
+  <xacro:property name="robot_body_height" value="${scale*0.3}"/>
+  <xacro:property name="robot_hand_len" value="${scale*0.35}"/>
+  <xacro:property name="robot_hand_width" value="${scale*0.1}"/>
+
+  <!-- Robot Base -->
+  <link name="base_link">
+
+    <!-- Robot body-->
+    <visual>
+      <origin xyz="0 0 ${platform_height+robot_leg_height+robot_body_height/2}" rpy="0 0 0"/>
+      <geometry>
+        <box size="${robot_body_len} ${robot_body_width} ${robot_body_height}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+
+    <!-- Robot legs -->
+    <visual>
+      <origin xyz="0 ${chassis_y_offset} ${platform_height/2}" rpy="0 0 0"/>
+      <geometry>
+        <box size="${platform_len} ${platform_width} ${platform_height}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+
+    <visual>
+      <origin xyz="0 -${chassis_y_offset} ${platform_height/2}" rpy="0 0 0"/>
+      <geometry>
+        <box size="${platform_len} ${platform_width} ${platform_height}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+
+    <visual>
+      <origin xyz="0 ${chassis_y_offset} ${robot_leg_height/2+platform_height}" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${robot_leg_height}" radius="${robot_leg_radius}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+
+    <visual>
+      <origin xyz="0 -${chassis_y_offset} ${robot_leg_height/2+platform_height}" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${robot_leg_height}" radius="${robot_leg_radius}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+
+    <!-- Robot chassis -->
+    <visual>
+      <origin xyz="${chassis_x_offset} -${chassis_y_offset} -${chassis_height/2}" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${chassis_height}" radius="${chassis_axis_radius}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+
+    <visual>
+      <origin xyz="-${chassis_x_offset} -${chassis_y_offset} -${chassis_height/2}" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${chassis_height}" radius="${chassis_axis_radius}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+
+    <visual>
+      <origin xyz="${chassis_x_offset} ${chassis_y_offset} -${chassis_height/2}" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${chassis_height}" radius="${chassis_axis_radius}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+
+    <visual>
+      <origin xyz="-${chassis_x_offset} ${chassis_y_offset} -${chassis_height/2}" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${chassis_height}" radius="${chassis_axis_radius}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+
+    <!-- Rotation axis -->
+    <visual>
+      <origin xyz="${chassis_x_offset} -${chassis_y_offset} -${chassis_height+chassis_axis_radius/2}" rpy="${pi/2} 0 0"/>
+      <geometry>
+        <cylinder length="${rotation_axis_len}" radius="${chassis_axis_radius}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+
+    <visual>
+      <origin xyz="${chassis_x_offset} ${chassis_y_offset} -${chassis_height+chassis_axis_radius/2}" rpy="${pi/2} 0 0"/>
+      <geometry>
+        <cylinder length="${rotation_axis_len}" radius="${chassis_axis_radius}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+
+    <visual>
+      <origin xyz="-${chassis_x_offset} ${chassis_y_offset} -${chassis_height+chassis_axis_radius/2}" rpy="-${pi/2} 0 0"/>
+      <geometry>
+        <cylinder length="${rotation_axis_len}" radius="${chassis_axis_radius}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+
+    <visual>
+      <origin xyz="-${chassis_x_offset} -${chassis_y_offset} -${chassis_height+chassis_axis_radius/2}" rpy="-${pi/2} 0 0"/>
+      <geometry>
+        <cylinder length="${rotation_axis_len}" radius="${chassis_axis_radius}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link> 
+
+  <!-- Robot wheels -->
+  <link name="left_front_wheels">
+    <visual>
+      <origin xyz="0 ${rotation_axis_len/2+wheel_radius/2} 0" rpy="${pi/2} 0 0"/>
+      <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <material name="Gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <visual>
+      <origin xyz="0 -${rotation_axis_len/2+wheel_radius/2} 0" rpy="${pi/2} 0 0"/>
+      <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <material name="Gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="left_front_wheels_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_front_wheels"/>
+    <origin xyz="${chassis_x_offset} ${chassis_y_offset} -${chassis_height+chassis_axis_radius/2}" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="left_back_wheels">
+    <visual>
+      <origin xyz="0 ${rotation_axis_len/2+wheel_radius/2} 0" rpy="${pi/2} 0 0"/>
+      <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <material name="Gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <visual>
+      <origin xyz="0 -${rotation_axis_len/2+wheel_radius/2} 0" rpy="${pi/2} 0 0"/>
+      <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <material name="Gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="left_back_wheels_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_back_wheels"/>
+    <origin xyz="-${chassis_x_offset} ${chassis_y_offset} -${chassis_height+chassis_axis_radius/2}" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="right_front_wheels">
+    <visual>
+      <origin xyz="0 ${rotation_axis_len/2+wheel_radius/2} 0" rpy="${pi/2} 0 0"/>
+      <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <material name="Gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <visual>
+      <origin xyz="0 -${rotation_axis_len/2+wheel_radius/2} 0" rpy="${pi/2} 0 0"/>
+      <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <material name="Gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="right_front_wheels_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_front_wheels"/>
+    <origin xyz="${chassis_x_offset} -${chassis_y_offset} -${chassis_height+chassis_axis_radius/2}" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="right_back_wheels">
+    <visual>
+      <origin xyz="0 ${rotation_axis_len/2+wheel_radius/2} 0" rpy="${pi/2} 0 0"/>
+      <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <material name="Gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <visual>
+      <origin xyz="0 -${rotation_axis_len/2+wheel_radius/2} 0" rpy="${pi/2} 0 0"/>
+      <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <material name="Gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="right_back_wheels_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_back_wheels"/>
+    <origin xyz="-${chassis_x_offset} -${chassis_y_offset} -${chassis_height+chassis_axis_radius/2}" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Robot hands -->
+  <link name="left_hand">
+    <visual>
+      <origin xyz="0 ${robot_hand_width/2} -${robot_hand_len/2-robot_hand_width/2}" rpy="0 0 0"/>
+      <geometry>
+          <box size="${robot_hand_width} ${robot_hand_width} ${robot_hand_len}"/>
+      </geometry>
+      <material name="Gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="left_hand_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_hand"/>
+    <origin xyz="0 ${robot_body_width/2} ${platform_height+robot_leg_height+robot_body_height-robot_hand_width/2}" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="right_hand">
+    <visual>
+      <origin xyz="0 -${robot_hand_width/2} -${robot_hand_len/2-robot_hand_width/2}" rpy="0 0 0"/>
+      <geometry>
+          <box size="${robot_hand_width} ${robot_hand_width} ${robot_hand_len}"/>
+      </geometry>
+      <material name="Gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="right_hand_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_hand"/>
+    <origin xyz="0 -${robot_body_width/2} ${platform_height+robot_leg_height+robot_body_height-robot_hand_width/2}" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  
+</robot>
