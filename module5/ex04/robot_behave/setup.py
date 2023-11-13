@@ -23,7 +23,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'rotate = robot_behave.rotate:main',
+            'circle_movement = robot_behave.rotate:main',
         ],
     },
 )
