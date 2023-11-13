@@ -84,7 +84,7 @@ def generate_launch_description():
 
     rotate = Node(
         package="robot_behave",
-        executable="rotate"
+        executable="circle_movement"
     )
 
     return LaunchDescription([
